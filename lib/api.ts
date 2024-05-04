@@ -13,7 +13,7 @@ async function fetchAPI<T>(endpoint: string, options: RequestInit): Promise<T> {
 // Define the API object with methods
 const api = {
   signup: async (data: any) => {
-    return await fetchAPI("/signup", {
+    return await fetchAPI("/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +22,7 @@ const api = {
     });
   },
   users: async () => {
-    return await fetchAPI("/users", {
+    return await fetchAPI("/auth/users", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
