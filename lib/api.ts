@@ -2,12 +2,23 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 // Helper function to perform fetch operations
-async function fetchAPI<T>(endpoint: string, options: RequestInit): Promise<T> {
-  const response = await fetch(`${BASE_URL}${endpoint}`, options);
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
+async function fetchAPI<T>(
+  endpoint: string,
+  options?: RequestInit
+): Promise<T> {
+  try {
+    const response = await fetch(`${BASE_URL}${endpoint}`, options);
+    if (!response.ok) {
+      const errorBody = await response.text(); // or response.json() if response is in JSON format
+      throw new Error(
+        `API responded with status ${response.status}: ${errorBody}`
+      );
+    }
+    return response.json() as Promise<T>;
+  } catch (error) {
+    console.error("Fetch API error:", error);
+    throw error; // Rethrow after logging or handling
   }
-  return response.json() as Promise<T>;
 }
 
 // Define the API object with methods
@@ -23,6 +34,14 @@ const api = {
   },
   users: async () => {
     return await fetchAPI("/auth/users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  roles: async () => {
+    return await fetchAPI("/role", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

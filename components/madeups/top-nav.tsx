@@ -1,5 +1,5 @@
 import React from "react";
-import { ModeToggle } from "./theme-toggle";
+import { ModeToggle } from "../theme-toggle";
 
 type Props = {};
 
