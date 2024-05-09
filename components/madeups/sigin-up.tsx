@@ -8,48 +8,51 @@ import { z } from "zod";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { Form, FormField, FormItem, FormMessage } from "../ui/form";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { motion } from "framer-motion";
 import api from "@/lib/api";
+import { Role } from "@/lib/enums";
 
 const FormSchema = z.object({
-  firstname: z.string().min(3, {
-    message: "firstname is required.",
-  }),
-  lastname: z.string().min(3, {
-    message: "lastname is required.",
-  }),
-  email: z.string().email({
-    message: "Invalid email address.",
-  }),
-  hash: z.string().min(8, {
-    message: "Password must be at least 8 characters.",
-  }),
+  firstname: z.string().nonempty("First name is required."),
+  lastname: z.string().nonempty("Last name is required."),
+  roleId: z.string().nonempty("Role is required."), // Treat IDs as strings
+  departmentId: z.string().nonempty("Department is required."),
+  collegeId: z.string().nonempty("Id is required."),
+  email: z.string().email("Invalid email address."),
+  hash: z.string().min(8, "Password must be at least 8 characters."),
 });
 
 export function SignUp() {
-  const [roles, setRoles] = useState();
+  const [roles, setRoles] = useState<Role[]>([]);
+  const [colleges, setColleges] = useState<Role[]>([]);
+  const [departments, setDepartments] = useState<Role[]>([]);
   const router = useRouter();
 
   useEffect(() => {
     api
       .roles()
       .then((data) => {
-        console.log(data);
-        // setRoles(data);
+        setRoles(data);
       })
       .catch((error) => {
         console.error("Failed to fetch roles:", error);
       });
+    api.colleges().then((data) => {
+      setColleges(data);
+    });
+    api.departments().then((data) => {
+      setDepartments(data);
+    });
   }, []); // Empty array means this effect will only run once on mount
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -57,13 +60,33 @@ export function SignUp() {
     defaultValues: {
       firstname: "",
       lastname: "",
+      roleId: "", // Use undefined for initial non-selection state
+      departmentId: "",
+      collegeId: "",
       email: "",
       hash: "",
     },
   });
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-    router.push("/signin");
+    try {
+      const user = {
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        hash: data.hash,
+        roleId: parseInt(data.roleId),
+        collegeId: parseInt(data.collegeId),
+        departmentId: parseInt(data.departmentId),
+      };
+      console.log("Signing up user:", user);
+
+      await api.signup(user);
+      router.push("/auth/signin");
+    } catch (error: any) {
+      console.error(error);
+      return;
+    }
   };
 
   return (
@@ -136,6 +159,96 @@ export function SignUp() {
                     <LabelInputContainer>
                       <Label htmlFor="password">Password</Label>
                       <Input placeholder="••••••••" {...field} />
+                    </LabelInputContainer>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="roleId"
+                render={({ field }) => (
+                  <FormItem className="mt-4">
+                    <LabelInputContainer>
+                      <Label htmlFor="role">Role</Label>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value.toString()}
+                      >
+                        <SelectTrigger className="">
+                          <SelectValue placeholder="Role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {roles?.map((role) => (
+                            <SelectItem
+                              key={role.id}
+                              value={role.id.toString()}
+                            >
+                              {role.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </LabelInputContainer>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="collegeId"
+                render={({ field }) => (
+                  <FormItem className="mt-4">
+                    <LabelInputContainer>
+                      <Label>College</Label>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value.toString()}
+                      >
+                        <SelectTrigger className="">
+                          <SelectValue placeholder="Select your college" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {colleges?.map((college) => (
+                            <SelectItem
+                              key={college.id}
+                              value={college.id.toString()}
+                            >
+                              {college.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </LabelInputContainer>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="departmentId"
+                render={({ field }) => (
+                  <FormItem className="mt-4">
+                    <LabelInputContainer>
+                      <Label>Department</Label>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value.toString()}
+                      >
+                        <SelectTrigger className="">
+                          <SelectValue placeholder="Select your dept" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {departments?.map((department) => (
+                            <SelectItem
+                              key={department.id}
+                              value={department.id.toString()}
+                            >
+                              {department.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </LabelInputContainer>
                     <FormMessage />
                   </FormItem>

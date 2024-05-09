@@ -1,6 +1,7 @@
 // Define the base URL for your API
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
+import { SigninRes, type Role, type RolesResponse } from "@/lib/enums";
+import { sign } from "crypto";
 // Helper function to perform fetch operations
 async function fetchAPI<T>(
   endpoint: string,
@@ -32,6 +33,15 @@ const api = {
       body: JSON.stringify(data),
     });
   },
+  signin: async (data: any): Promise<SigninRes> => {
+    return await fetchAPI("/auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  },
   users: async () => {
     return await fetchAPI("/auth/users", {
       method: "GET",
@@ -40,8 +50,24 @@ const api = {
       },
     });
   },
-  roles: async () => {
-    return await fetchAPI("/role", {
+  roles: async (): Promise<RolesResponse> => {
+    return await fetchAPI<RolesResponse>("/role", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  colleges: async (): Promise<RolesResponse> => {
+    return await fetchAPI("/college", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  departments: async (): Promise<RolesResponse> => {
+    return await fetchAPI("/department", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

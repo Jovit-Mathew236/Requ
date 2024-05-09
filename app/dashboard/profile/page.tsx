@@ -1,9 +1,9 @@
-import { SignUp } from "@/components/madeups/sigin-up";
 import React from "react";
+
 type Props = {};
 
 const page = (props: Props) => {
-  return <SignUp />;
+  return <div>profile</div>;
 };
 
 export default page;
