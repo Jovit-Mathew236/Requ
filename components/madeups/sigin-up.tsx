@@ -101,7 +101,7 @@ export function SignUp() {
         }}
         className="relative flex flex-col gap-4 items-center justify-center px-4"
       >
-        <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+        <div className="max-w-md w-full mx-auto rounded-none  shadow-lg md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
           <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
             Welcome to Requ
           </h2>
@@ -256,12 +256,22 @@ export function SignUp() {
               />
 
               <button
-                className="mt-4 bg-gradient-to-br from-black to-neutral-600 w-full text-white rounded-md h-10 font-medium"
+                className="mt-4 bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% w-full text-white rounded-md h-10 font-medium"
                 type="submit"
               >
                 Sign up &rarr;
               </button>
             </form>
+
+            <p className="text-neutral-600 text-sm dark:text-neutral-300">
+              Already have an account?{" "}
+              <a
+                className="text-neutral-800 dark:text-neutral-200"
+                href="/auth/signin"
+              >
+                Sign in
+              </a>
+            </p>
           </Form>
         </div>
       </motion.div>
