@@ -34,9 +34,10 @@ const RequForm = (props: Props) => {
 
   useEffect(() => {
     api
-      .roles()
+      .faculties()
       .then((data) => {
         setRoles(data);
+        console.log(data);
       })
       .catch((error) => {
         console.error("Failed to fetch roles:", error);

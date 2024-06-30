@@ -2,11 +2,30 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 import { SigninRes, type Role, type RolesResponse } from "@/lib/enums";
 import { sign } from "crypto";
+import Cookies from "js-cookie";
+
 // Helper function to perform fetch operations
 async function fetchAPI<T>(
   endpoint: string,
   options?: RequestInit
 ): Promise<T> {
+  const token = Cookies.get("access_token"); // Get the token from cookies
+
+  // Ensure options and headers are properly initialized
+  if (!options) {
+    options = {};
+  }
+  if (!options.headers) {
+    options.headers = {};
+  }
+
+  // Set the Authorization header if token exists
+  if (token) {
+    (options.headers as Record<string, string>)[
+      "Authorization"
+    ] = `Bearer ${token}`;
+  }
+
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, options);
     if (!response.ok) {
@@ -71,6 +90,16 @@ const api = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+      },
+    });
+  },
+  faculties: async (): Promise<RolesResponse> => {
+    const token = Cookies.get("access_token"); // Get the token from cookies
+    return await fetchAPI("/user/roles/2", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}` ? `Bearer ${token}` : "", // Include the Authorization header if token exists
       },
     });
   },
