@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Profile from "../madeups/profile";
+import Profile from "../madeups/send";
 import Portfolio from "../madeups/portfolio";
 
 const ScrollTabsWrapper: React.FC<{

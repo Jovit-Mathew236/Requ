@@ -3,14 +3,14 @@ import { create } from "zustand";
 
 interface UserState {
   userName: string;
-  userImageUrl: string;
-  setUserImageUrl: (name: string) => void;
-  setUserName: (url: string) => void;
+  userRole: number;
+  setUserName: (role: string) => void;
+  setUserRole: (name: number) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
-  userImageUrl: "",
+  userRole: 1,
   userName: "",
   setUserName: (name) => set({ userName: name }),
-  setUserImageUrl: (url) => set({ userImageUrl: url }),
+  setUserRole: (role) => set({ userRole: role }),
 }));

@@ -17,10 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#F3F5F9] min-h-screen">
+    <div className="bg-[#F3F5F9] min-h-screen dark:bg-[#2c3a4d]">
       <NavBar />
       <div className="p-4 sm:ml-64">
-        {/* <UpdateZustand /> */}
+        <UpdateZustand />
         <div className="px-1 py-4 md:p-4  mt-14">{children}</div>
       </div>
     </div>

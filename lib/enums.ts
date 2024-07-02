@@ -27,6 +27,7 @@ export interface Form {
   toId: number;
   email: string;
   title: string;
+  replay: string;
   message: string;
   approved: boolean;
   createdAt: string;

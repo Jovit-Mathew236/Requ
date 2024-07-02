@@ -54,7 +54,7 @@ const SignIn = () => {
           description: "Please check your email for the OTP.",
         });
         setIsLoading(false);
-        router.push("/dashboard/homepage");
+        router.push("/dashboard/inbox");
       });
     } catch (error: any) {
       setIsLoading(false);

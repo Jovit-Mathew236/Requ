@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Profile from "@/components/madeups/profile";
-import { getForm } from "@/lib/dasboard";
+import Send from "@/components/madeups/send";
+import { getSendForm } from "@/lib/dasboard";
 import { Form } from "@/lib/enums";
 
 const Pages = () => {
@@ -10,7 +10,7 @@ const Pages = () => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const data = await getForm();
+        const data = await getSendForm();
         setFormData(data);
       } catch (error) {
         console.error(error);
@@ -27,7 +27,7 @@ const Pages = () => {
 
   return (
     <div>
-      <Profile formData={formData} />
+      <Send formData={formData} />
     </div>
   );
 };

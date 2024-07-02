@@ -22,7 +22,7 @@ type Props = {};
 const NavBar = (props: Props) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { userName, userImageUrl } = useUserStore();
+  const { userName } = useUserStore();
   // const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   // const [isProjectDialogOpen, setProjectDialogOpen] = useState(false);
   // console.log(pathname.split("/")[2]);
@@ -104,7 +104,7 @@ const NavBar = (props: Props) => {
                     data-dropdown-toggle="dropdown-user"
                   >
                     <span className="sr-only">Open user menu</span>
-                    {userImageUrl && (
+                    {/* {userImageUrl && (
                       <Image
                         src={userImageUrl ?? "/assets/images/dp.jpg"}
                         alt="user photo"
@@ -112,7 +112,7 @@ const NavBar = (props: Props) => {
                         height={500}
                         className="rounded-full h-8 w-8 object-cover"
                       />
-                    )}
+                    )} */}
                   </button>
                 </div>
                 <div
@@ -175,17 +175,17 @@ const NavBar = (props: Props) => {
           </Dialog> */}
           <ul className="space-y-2">
             <NavList
-              label="Homepage"
+              label="Inbox"
               icon="fi fi-rr-home"
               selected={selected}
-              onClick={() => handleItemClick("Homepage")}
+              onClick={() => handleItemClick("Inbox")}
             />
-            {/* <NavList
-              label="Portfolio"
+            <NavList
+              label="Send"
               icon="fi fi-rr-document"
               selected={selected}
-              onClick={() => handleItemClick("Portfolio")}
-            /> */}
+              onClick={() => handleItemClick("Send")}
+            />
             {/* <NavList label="Referrals" icon="fi fi-rs-users" selected={selected} onClick={() => handleItemClick("Referrals")} /> */}
             {/* <hr />
             <NavList
@@ -251,7 +251,7 @@ const NavList: React.FC<NavProps> = ({
   return (
     <li onClick={onClick} className="flex flex-row cursor-pointer">
       <a
-        className={`flex before:bg-[#6648D6] hover:before:h-10 before:rounded-r-sm before:w-1 before:absolute before:left-0 w-full items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-[#6648D6] hover:text-white dark:hover:bg-[#6648D6] group ${
+        className={`transition-all flex before:bg-[#6648D6] hover:before:h-10 before:rounded-r-sm before:w-1 before:absolute before:left-0 w-full items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-[#6648D6] hover:shadow-lg hover:text-white dark:hover:bg-[#6648D6] group ${
           isSelected ? "bg-[#6648D6] text-white before:h-10" : ""
         }`}
         href={href}
