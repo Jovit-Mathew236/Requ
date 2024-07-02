@@ -155,10 +155,12 @@ const ReplayForm = ({
     <>
       {prevData && (
         <div className="mt-4 p-4 bg-blue-100 border-l-4 border-blue-400">
-          <h4 className="text-lg font-semibold text-blue-900">Title:</h4>
-          <p className="mt-2 text-blue-800">{prevData.title}</p>
+          <h4 className="text-lg font-semibold text-blue-900">From:</h4>
+          <p className="mt-1 text-blue-800">{prevData.email}</p>
+          <h4 className="text-lg font-semibold mt-4 text-blue-900">Title:</h4>
+          <p className="mt-1 text-blue-800">{prevData.title}</p>
           <h4 className="text-lg font-semibold mt-4 text-blue-900">Message:</h4>
-          <p className="mt-2 text-blue-800">{prevData.message}</p>
+          <p className="mt-1 text-blue-800">{prevData.message}</p>
         </div>
       )}
 

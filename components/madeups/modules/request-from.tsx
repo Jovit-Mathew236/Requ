@@ -92,7 +92,7 @@ const RequestFrom = ({
       };
 
       // Call CreateRequest with newData
-      prevData === null
+      prevData === undefined
         ? await CreateRequest(newData).then((data) => {
             updatePortfolioData(data);
             toast({
