@@ -6,9 +6,8 @@ import Image from "next/image";
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Edapt | dashboard",
-  description:
-    "Edapt is a platform for educators to share and discover resources.",
+  title: "Requ | dashboard",
+  description: "Requ is a platform for educators to make Requests",
 };
 
 export default function RootLayout({

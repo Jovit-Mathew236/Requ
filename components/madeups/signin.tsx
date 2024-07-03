@@ -78,9 +78,9 @@ const SignIn = () => {
     <div className="flex flex-col md:flex-row h-screen w-screen">
       <div className="flex-1 flex flex-col gap-10 justify-center items-center px-4 md:px-0">
         <div className="flex flex-col items-center gap-5">
-          <h1 className="font-bold text-3xl">Welcome to Edapt</h1>
+          <h1 className="font-bold text-3xl">Welcome to Requ</h1>
           <p className="font-normal text-center md:text-left">
-            Seamless learning with Edapt's intuitive platform
+            Seamless Requests with Requ's intuitive platform
           </p>
         </div>
         <div className="w-full sm:w-[400px]">

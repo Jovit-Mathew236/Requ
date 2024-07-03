@@ -221,7 +221,7 @@ const NavBar = (props: Props) => {
             />
           </ul>
           <div className="mt-10 text-xs text-center text-gray-400">
-            All rights reserved to Edapt © 2024.
+            All rights reserved to Requ © 2024.
           </div>
         </div>
       </aside>
