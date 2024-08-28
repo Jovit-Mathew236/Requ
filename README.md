@@ -28,11 +28,8 @@ bun install
 Create a `.env` file in the root of your project and add the following environment variables:
 
 ```env
-DATABASE_URL="postgres://username:password@localhost:5432/database"
-JWT_SECRET="your-secret-key"
+NEXT_PUBLIC_API_BASE_URL="http://localhost:8000"
 ```
-
-Replace `username`, `password`, `database`, and `your-secret-key` with your actual database credentials and a secure secret key.
 
 ## Running the Application
 
